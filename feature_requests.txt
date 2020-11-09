@@ -9,3 +9,4 @@
 - move repeated and repeatable strings to resource
 
 - add await equivalent when adding reactions to the message to make sure they are in correct order (see javascript version: https://discordjs.guide/popular-topics/reactions.html#reacting-to-messages) *update: used .join() but does not seem to work consistently…*
+- edit reactions id from environment or static file or with Emote.getbyName

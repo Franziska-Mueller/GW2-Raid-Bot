@@ -1,0 +1,27 @@
+services:
+    bot:
+        env_file: .env
+        build: .
+        image: hactarus/discord-bot:latest
+        restart: always
+        # restart_policy:
+        #     condition: on-failure
+        #     delay: 5s
+        #     max_attempts: 3
+        #     window: 120s
+        # network: host
+        network_mode: bridge
+        volumes:
+            - type: bind
+              source: ./events.db
+              target: /data/events.db
+    #     links:
+    #         - db
+    # db:
+    #     env_file: .env
+    #     image: postgres
+
+volumes:
+    database:
+        driver: local
+version: '3.3'

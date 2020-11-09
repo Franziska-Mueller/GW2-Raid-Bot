@@ -1,0 +1,9 @@
+#!/bin/bash
+cd /data
+echo "[Set token]"
+if [[ ! -z ${DISCORD_TOKEN} ]]; then
+	echo "${DISCORD_TOKEN}" > /data/token
+fi
+echo "[Start]"
+java -jar bot.jar ${@}
+echo "[End]"
