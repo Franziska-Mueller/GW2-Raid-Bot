@@ -560,7 +560,7 @@ public class ServerSettings {
             }
 
             if (g < roleTemplates.size() - 1)
-                result += "/";
+                result += "#";
         }
         return result;
     }
