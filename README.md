@@ -26,14 +26,6 @@ Event leaders can also remove people from events via !removeFromEvent \[event id
 
 If you already have a registered bot and the emoji deployed, you can skip ahead to [Starting The Bot](#starting-the-bot).
 
-### Prerequisites
-
-- Java 8 or higher
-- Apache Maven
-- A Discord Bot Token for a registered Discord App
-- A Discord server with the emoji to use on it
-- The bot invited to the server with the emoji
-
 ### Preparations
 
 The emoji used for reactions and in messages the bot sends need to be put onto a server the bot has access to. If you have no idea where to get the emoji for the bot, create an empty server to put just the bot and yourself on. This server will help debugging, preparing and testing as well as keep your guild server free from the emoji you are about to litter the test server with.
@@ -79,7 +71,83 @@ To get a token to use with the bot, go to your application's `Bot` page (from th
 
 While you have that page open, scroll down and enable the `Privileged Gateway Intents` that are `Server Members Intent` and `Message Content Intent`. These are required for the bot to log in.
 
-### Starting The Bot
+### Running as a Container
+
+#### Containerization Prerequisites
+
+- any LXC container runtime with build capabilities; this can be any of the following, non-exhaustive list
+  - docker engine (likely with buildx) (most tools are included in docker dektop)
+  - podman
+  - kubernetes
+  - minikube
+- (optional:) a compose plugin to use the `docker-compose.yml` with for convenience
+
+#### Building And Starting The Container
+
+##### With Compose
+
+This is the preferred method to build the image and run the container.
+
+Upon first **startup**, the image is built automatically, so all you need to do is a simple
+
+```sh
+docker compose up -d
+```
+
+This will start the container in a detached state, so it will keep running in the background.
+
+To **stop** the entire deployment, you can simply use
+
+```sh
+docker compose down
+```
+
+To **update** the image, you can add the `--build` flag to the end of the starting command or run
+
+```sh
+docker compose build
+```
+
+to specifically build the iamge again and restart it afterwards.
+
+##### Without Compose
+
+We included a `Dockerfile` in order to make the build process as easy as possible.
+
+in order to build the container, you only need to navigate to the project's root directory and run
+
+```sh
+docker build -t localhost/franziska-mueller/gw2-raid-bot:local .
+```
+
+This will build the image and tag it as the version `local` of the image `franziska-mueller/gw2-raid-bot` of your `localhost` repository.
+
+If you are hosting your own repository and plan on pushing the image there, it is recommended to change the command to something like this:
+
+```sh
+docker build -t <your-registry>[:<registry-port>]/<namespace>/gw2-raid-bot:latest .
+```
+
+After building, you can run the container by referencing its tag. For the default build, this would look like this:
+
+```sh
+docker run localhost/franziska-mueller/gw2-raid-bot:local
+```
+
+or, for your custom tags
+
+```sh
+docker run <your-registry>[:<registry-port>]/<namespace>/gw2-raid-bot:latest
+```
+
+### Running Locally
+
+#### Local Build Prerequisites
+
+- Java 8 or higher
+- Apache Maven
+
+#### Starting The Bot
 
 To download the source code, use the corresponding `Code` button on GitHub (or just clone it if you can).
 
@@ -107,7 +175,7 @@ bash ./util/start-bot.sh
 
 Assuming you are still in the project directory and didn't move the jar file yet, the path to the jar file is `target/GW2-Raid-Bot-1.0-SNAPSHOT.jar`.
 
-### Starting As A Service
+#### Starting As A Service
 
 This repository includes a service definition for `systemd`.
 
@@ -145,14 +213,15 @@ There are two types of coniguration, one uses environment variables to supply th
 
 Environment variable can be used in two ways:
 
-- Using actual environment variables from the system
-- Using a .env file
+- Using actual environment variables, e.g. in the container (docker, etc.)
+- Using a `.env` file
 
 The variables the bot reads from the environment are explained in the following table:
 
 | Variable           | Purpose                                                           |
 | ------------------ | ----------------------------------------------------------------- |
 | DISCORD_TOKEN      | Token the bot uses to authorize with the Discord API.             |
+| DB_FILE_NAME       | The name or path to the database file.                            |
 | RAIDAR_USERNAME    | Username of a raidar account to upload dps reports if so desired. |
 | RAIDAR_PASSWORD    | Password of a raidar account to upload dps reports if so desired. |
 | EMOTE_DRAGONHUNTER | Emoji ID for the Dragonhunter class.                              |
@@ -219,8 +288,7 @@ You may change it but changing the configuration requires you to rebuild the pac
 
 - Christopher Bitler: original bot development
 - Tyler "Inverness": original bot idea
-
-- Jeremy D. Thralls, Franziska Mueller: extensions to the original bot
+- J. D. Thralls, Franziska Mueller: extensions to the original bot
 
 ## License
 
