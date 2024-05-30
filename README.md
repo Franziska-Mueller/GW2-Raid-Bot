@@ -221,6 +221,7 @@ The variables the bot reads from the environment are explained in the following 
 | Variable           | Purpose                                                           |
 | ------------------ | ----------------------------------------------------------------- |
 | DISCORD_TOKEN      | Token the bot uses to authorize with the Discord API.             |
+| DB_FILE_NAME       | The name or path to the database file.                            |
 | RAIDAR_USERNAME    | Username of a raidar account to upload dps reports if so desired. |
 | RAIDAR_PASSWORD    | Password of a raidar account to upload dps reports if so desired. |
 | EMOTE_DRAGONHUNTER | Emoji ID for the Dragonhunter class.                              |
