@@ -85,7 +85,7 @@ public class RaidBot {
                             .build()
                             .awaitReady();
         this.jda = jda;
-        db = new Database("events.db");
+        db = new Database();
         db.connect();
         RaidManager.loadRaids();
 

@@ -1,9 +1,13 @@
 package me.cbitler.raidbot.database;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import me.cbitler.raidbot.utility.EnvVariables;
 
 /**
  * Class for managing the SQLite database for this bot
@@ -61,14 +65,35 @@ public class Database {
      * Create a new database with the specific filename
      * @param databaseName The filename/location of the SQLite database
      */
-    public Database(String databaseName) {
-        this.databaseName = databaseName;
+    public Database() {
+        this.databaseName = EnvVariables.getValue("DB_FILE_NAME");
+        if(this.databaseName == null){
+            this.databaseName = "db/events.db";
+            var oldDbFile = Paths.get("events.db").toFile();
+            if(oldDbFile.exists()) {
+                oldDbFile.renameTo(Paths.get(this.databaseName).toFile());
+            }
+        }
+        if(!this.databaseName.startsWith("/")){
+            var absolutePath = Paths.get(EnvVariables.getContextPath(),this.databaseName).toAbsolutePath();
+            var directoryPath = absolutePath.getParent();
+            if(!directoryPath.toFile().exists()) {
+                try {
+                    Files.createDirectories(directoryPath);
+                } catch (IOException e) {
+                    log.error("Could not create parent directories for database file.", e);
+                    System.exit(1);
+                }
+            }
+            this.databaseName = absolutePath.toString();
+        }
     }
 
     /**
      * Connect to the SQLite database and create the tables if they don't exist
      */
     public void connect() {
+        log.info("Connecting to database on '" + this.databaseName + "'");
         String url = "jdbc:sqlite:" + databaseName;
         try {
             connection = DriverManager.getConnection(url);

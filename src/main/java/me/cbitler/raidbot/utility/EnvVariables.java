@@ -1,7 +1,9 @@
 package me.cbitler.raidbot.utility;
 
+import java.nio.file.Paths;
 import java.util.HashMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,6 +46,14 @@ public class EnvVariables {
         else return null;
     }
 
+    public static String getContextPath() {
+        var path = System.getenv("INIT_WORKDIR");
+        if(StringUtils.isBlank(path)) {
+            path = Paths.get("") .toAbsolutePath() .toString();
+        }
+        return path;
+    }
+
     /**
      * Load variables from .env file and token file to write them to the EnvVariables static context on startup
      */
@@ -51,7 +61,7 @@ public class EnvVariables {
         log.debug("loading env vars");
         Dotenv env;
         try{
-            env = Dotenv.load();
+            env = Dotenv.configure().directory(getContextPath()).ignoreIfMissing().load();
         }catch(Exception e){
             log.error("Loading env vars failed.");
             log.debug("Loading env vars failed with error.", e);

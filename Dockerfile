@@ -1,0 +1,22 @@
+# --- Artifact Build Stage --- #
+FROM maven:3-eclipse-temurin-11 as builder
+
+RUN mkdir /app
+WORKDIR /app
+COPY . /app
+
+RUN mvn package
+
+# --- Image Build Stage --- #
+FROM eclipse-temurin:11
+
+WORKDIR /opt/app
+
+RUN mkdir -p /opt/app/logs
+RUN mkdir -p /opt/app/db
+
+VOLUME [ "/opt/app/db", "/opt/app/logs" ]
+
+COPY --from=builder /app/target/GW2-Raid-Bot-*.jar /opt/app/GW2-Raid-Bot.jar
+
+CMD ["java", "-jar", "./GW2-Raid-Bot.jar"]

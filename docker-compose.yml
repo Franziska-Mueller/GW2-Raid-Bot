@@ -1,0 +1,55 @@
+services:
+  gw2-raid-bot:
+    build:
+      context: .
+    restart: always
+    volumes:
+      - bot-db:/opt/app/db
+      - bot-log:/opt/app/logs
+    environment:
+      - DISCORD_TOKEN=
+      - EMOTE_DRAGONHUNTER=
+      - EMOTE_FIREBRAND=
+      - EMOTE_HERALD=
+      - EMOTE_RENEGADE=
+      - EMOTE_BERSERKER=
+      - EMOTE_SPELLBREAKER=
+      - EMOTE_SCRAPPER=
+      - EMOTE_HOLOSMITH=
+      - EMOTE_DRUID=
+      - EMOTE_SOULBEAST=
+      - EMOTE_DAREDEVIL=
+      - EMOTE_DEADEYE=
+      - EMOTE_WEAVER=
+      - EMOTE_TEMPEST=
+      - EMOTE_CHRONOMANCER=
+      - EMOTE_MIRAGE=
+      - EMOTE_REAPER=
+      - EMOTE_SCOURGE=
+      - EMOTE_GUARDIAN=
+      - EMOTE_REVENANT=
+      - EMOTE_WARRIOR=
+      - EMOTE_ENGINEER=
+      - EMOTE_RANGER=
+      - EMOTE_THIEF=
+      - EMOTE_ELEMENTALIST=
+      - EMOTE_MESMER=
+      - EMOTE_NECROMANCER=
+      - EMOTE_FLEX=
+      - EMOTE_SWAP=
+      - EMOTE_EDIT=
+      - EMOTE_CANCEL=
+      - EMOTE_CHECK=
+      - EMOTE_WILLBENDER=
+      - EMOTE_VINDICATOR=
+      - EMOTE_BLADESWORN=
+      - EMOTE_MECHANIST=
+      - EMOTE_UNTAMED=
+      - EMOTE_SPECTER=
+      - EMOTE_CATALYST=
+      - EMOTE_VIRTUOSO=
+      - EMOTE_HARBINGER=
+
+volumes:
+  bot-db:
+  bot-log:
