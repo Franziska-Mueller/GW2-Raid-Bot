@@ -1,6 +1,6 @@
 package me.cbitler.raidbot.selection;
 
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Step in the role selection process
@@ -13,7 +13,7 @@ public interface SelectionStep
      * @param e The private message event
      * @return True if the step is done, false otherwise
      */
-    boolean handleDM(PrivateMessageReceivedEvent e);
+    boolean handleDM(MessageReceivedEvent e);
 
     /**
      * Get the object representing the next step in the role selection process

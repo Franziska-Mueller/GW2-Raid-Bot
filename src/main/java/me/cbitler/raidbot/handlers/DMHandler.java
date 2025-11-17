@@ -19,10 +19,9 @@ import me.cbitler.raidbot.selection.SelectionStep;
 import me.cbitler.raidbot.server_settings.RoleGroupsEditStep;
 import me.cbitler.raidbot.server_settings.RoleTemplatesEditStep;
 import me.cbitler.raidbot.swap.SwapStep;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 /**
@@ -50,7 +49,10 @@ public class DMHandler extends ListenerAdapter {
      * @param e The private message event
      */
     @Override
-    public void onPrivateMessageReceived(PrivateMessageReceivedEvent e) {
+    public void onPrivateMessageReceived(MessageReceivedEvent e) {
+        if (e.getChannelType() != PRIVATE)
+            return;
+
         User author = e.getAuthor();
 
         if (bot.getCreationMap().containsKey(author.getId())) {

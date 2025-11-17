@@ -1,6 +1,6 @@
 package me.cbitler.raidbot.creation;
 
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Role setup step for the event.
@@ -21,7 +21,7 @@ public class RunRoleSetupStep implements CreationStep {
      * @param e The direct message event
      * @return True if the user entered a valid choice, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         try {
     		int choiceId = Integer.parseInt(e.getMessage().getContentRaw()) - 1;
     		if (choiceId == 0) { // role template

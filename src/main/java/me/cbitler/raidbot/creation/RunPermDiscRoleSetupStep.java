@@ -3,7 +3,7 @@ package me.cbitler.raidbot.creation;
 import me.cbitler.raidbot.RaidBot;
 import me.cbitler.raidbot.raids.PendingRaid;
 import me.cbitler.raidbot.server_settings.ServerSettings;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -28,7 +28,7 @@ public class RunPermDiscRoleSetupStep implements CreationStep {
      * @param e The direct message event
      * @return True if the user entered a valid choice, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
     	PendingRaid raid = RaidBot.getInstance().getPendingRaids().get(e.getAuthor().getId());
         if (raid == null)
         	throw new RuntimeException();

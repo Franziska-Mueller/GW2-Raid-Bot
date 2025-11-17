@@ -1,7 +1,7 @@
 package me.cbitler.raidbot.deselection;
 
 import me.cbitler.raidbot.raids.Raid;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Step for removing a registration from a raid
@@ -25,7 +25,7 @@ public class DeselectIdleStep implements DeselectionStep {
      * @return True if the user chose a valid, not full, role, false otherwise
      */
     @Override
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
     	if (e.getMessage().getContentRaw().equalsIgnoreCase("done")) {
     		nextStep = null;
     		return true;

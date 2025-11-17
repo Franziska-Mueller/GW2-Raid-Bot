@@ -2,7 +2,7 @@ package me.cbitler.raidbot.creation;
 
 import me.cbitler.raidbot.RaidBot;
 import me.cbitler.raidbot.raids.PendingRaid;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * CURRENTLY UNUSED since almost all events are using long format
@@ -18,7 +18,7 @@ public class RunDisplayStep implements CreationStep {
      * @param e The direct message event
      * @return True if the disaply-short-message flag was set, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
     	boolean valid = true;
     	// try to parse an integer
     	int choiceID = 0;

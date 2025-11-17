@@ -2,7 +2,7 @@ package me.cbitler.raidbot.creation;
 
 import me.cbitler.raidbot.RaidBot;
 import me.cbitler.raidbot.raids.PendingRaid;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +23,7 @@ public class RunDateStep implements CreationStep {
      * @param e The direct message event
      * @return True if the date was set, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         RaidBot bot = RaidBot.getInstance();
         PendingRaid raid = bot.getPendingRaids().get(e.getAuthor().getId());
         if (raid == null) {

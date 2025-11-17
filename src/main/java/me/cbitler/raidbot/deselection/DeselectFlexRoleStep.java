@@ -7,7 +7,7 @@ import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.utility.Reactions;
 import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class DeselectFlexRoleStep implements DeselectionStep {
      * @return True if the user chose a valid, not full, role, false otherwise
      */
     @Override
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         ArrayList<FlexRole> rRoles = this.raid.getRaidUsersFlexRolesById(this.user.getId());
         String msg = e.getMessage().getContentRaw();
         if(rRoles.size()==0){
