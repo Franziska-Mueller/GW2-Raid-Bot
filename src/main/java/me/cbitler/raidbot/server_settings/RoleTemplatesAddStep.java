@@ -1,6 +1,6 @@
 package me.cbitler.raidbot.server_settings;
 
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class RoleTemplatesAddStep implements RoleTemplatesEditStep {
      * @param e The direct message event
      * @return True if a role is added, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         boolean valid = true;
 
         String[] parts = e.getMessage().getContentRaw().split(":");

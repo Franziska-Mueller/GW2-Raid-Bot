@@ -8,6 +8,7 @@ import me.cbitler.raidbot.utility.Reactions;
 import me.cbitler.raidbot.utility.RoleTemplates;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -55,14 +56,14 @@ public class RaidManager {
                         autoCreatorToEventMap.put(taskExecId, sentMessage.getId());
                     }
 
-                    List<Emote> emoteList;
+                    List<RichCustomEmoji> emoteList;
                     if (newRaid.isOpenWorld)
                         emoteList = Reactions.getOpenWorldEmotes();
                     else
                         emoteList = Reactions.getCoreClassEmotes();
 
                     Integer reactionErrors = 0;
-                    for (Emote emote : emoteList) {
+                    for (RichCustomEmoji emote : emoteList) {
                         try {
                             sentMessage.addReaction(emote).complete(); // complete will block until the reaction was added -> reactions are always in same order
                         } catch (Exception e) {

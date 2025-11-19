@@ -1,7 +1,7 @@
 package me.cbitler.raidbot.auto_events;
 
 import me.cbitler.raidbot.raids.AutoPendingRaid;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Set the time for the event
@@ -20,7 +20,7 @@ public class AutoRunTimeStep implements AutoCreationStep {
      * @param e The direct message event
      * @return True if the time is set, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         event.setTime(e.getMessage().getContentRaw());
 
         return true;

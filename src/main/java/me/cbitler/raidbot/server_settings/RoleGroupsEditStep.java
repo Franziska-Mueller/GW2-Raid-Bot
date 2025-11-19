@@ -1,6 +1,6 @@
 package me.cbitler.raidbot.server_settings;
 
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Represents a step while editing role groups
@@ -13,7 +13,7 @@ public interface RoleGroupsEditStep {
      * @param e The direct message event
      * @return True if we are done with this step, false if not
      */
-    boolean handleDM(PrivateMessageReceivedEvent e);
+    boolean handleDM(MessageReceivedEvent e);
 
     /**
      * Get the next step. Should create a new object representing the next step and return it.

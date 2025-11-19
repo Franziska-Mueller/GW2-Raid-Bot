@@ -2,7 +2,7 @@ package me.cbitler.raidbot.auto_events;
 
 import me.cbitler.raidbot.raids.AutoPendingRaid;
 import me.cbitler.raidbot.raids.RaidRole;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Role setup step for the event.
@@ -24,7 +24,7 @@ public class AutoRunRoleSetupManualStep implements AutoCreationStep {
      * @param e The direct message event
      * @return True if the user entered 'done', false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         if(e.getMessage().getContentRaw().equalsIgnoreCase("done")) {
             if(event.getRolesWithNumbers().size() > 0) {
                 return true;

@@ -1,7 +1,7 @@
 package me.cbitler.raidbot.auto_events;
 
 import me.cbitler.raidbot.raids.AutoPendingRaid;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Represents a step in the creation of an automatically repeated event
@@ -14,7 +14,7 @@ public interface AutoCreationStep {
      * @param e The direct message event
      * @return True if we are done with this step, false if not
      */
-    boolean handleDM(PrivateMessageReceivedEvent e);
+    boolean handleDM(MessageReceivedEvent e);
 
     /**
      * Get the next step. Should create a new object representing the next step and return it.
