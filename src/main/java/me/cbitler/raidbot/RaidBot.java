@@ -75,16 +75,16 @@ public class RaidBot {
         Collection<GatewayIntent> intents = GatewayIntent.getIntents(GatewayIntent.DIRECT_MESSAGES.getRawValue() +
                                                                      GatewayIntent.GUILD_MESSAGE_REACTIONS.getRawValue() +
                                                                      GatewayIntent.GUILD_MEMBERS.getRawValue() +
-                                                                     GatewayIntent.GUILD_EMOJIS.getRawValue() +
-                                                                     GatewayIntent.GUILD_MESSAGES.getRawValue());
+                                                                     GatewayIntent.GUILD_MESSAGES.getRawValue() +
+                                                                     GatewayIntent.MESSAGE_CONTENT.getRawValue()
+        );
 
-        JDA jda = JDABuilder.create(token, intents)
+        this.jda = JDABuilder.create(token, intents)
                             .addEventListeners(new DMHandler(this),
                                                new ChannelMessageHandler(),
                                                new ReactionHandler())
                             .build()
                             .awaitReady();
-        this.jda = jda;
         db = new Database();
         db.connect();
         RaidManager.loadRaids();

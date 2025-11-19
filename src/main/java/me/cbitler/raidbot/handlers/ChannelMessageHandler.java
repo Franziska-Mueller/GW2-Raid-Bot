@@ -21,9 +21,11 @@ import me.cbitler.raidbot.server_settings.ServerSettings.ChannelType;
 import me.cbitler.raidbot.utility.PermissionsUtil;
 import me.cbitler.raidbot.utility.RoleTemplates;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import static net.dv8tion.jda.api.entities.channel.ChannelType.PRIVATE;
 
 /**
  * Handle channel message-related events sent to the bot
@@ -39,7 +41,10 @@ public class ChannelMessageHandler extends ListenerAdapter {
      * @param e The event
      */
     @Override
-    public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
+    public void onMessageReceived(MessageReceivedEvent e) {
+        if (!e.isFromGuild())
+            return;
+
         RaidBot bot = RaidBot.getInstance();
         if (e.getAuthor().isBot()) {
             return;
@@ -50,11 +55,11 @@ public class ChannelMessageHandler extends ListenerAdapter {
             String[] arguments = CommandRegistry.getArguments(messageParts);
             Command command = CommandRegistry.getCommand(messageParts[0].replace("!",""));
             if(command != null) {
-                command.handleCommand(messageParts[0], arguments, e.getChannel(), e.getAuthor());
+                command.handleCommand(messageParts[0], arguments, e.getChannel().asTextChannel(), e.getAuthor());
 
                 try {
                     e.getMessage().delete().queue();
-                } catch (Exception exception) {}
+                } catch (Exception ignored) {}
             }
         }
 
@@ -66,7 +71,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                     RaidBot.writeNotificationActiveChat(e.getAuthor(), actvId);
                     try {
                         e.getMessage().delete().queue();
-                    } catch (Exception exception) {}
+                    } catch (Exception ignored) {}
                     return;
                 }
                 CreationStep runNameStep = new RunNameStep(e.getMessage().getGuild().getId());
@@ -74,7 +79,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                 bot.getCreationMap().put(e.getAuthor().getId(), runNameStep);
                 try {
                     e.getMessage().delete().queue();
-                } catch (Exception exception) {}
+                } catch (Exception ignored) {}
             } else if (e.getMessage().getContentRaw().toLowerCase().startsWith("!removefromevent")) {
                 String[] split = e.getMessage().getContentRaw().split(" ");
                 if(split.length < 3) {
@@ -93,7 +98,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                 }
                 try {
                     e.getMessage().delete().queue();
-                } catch (Exception exception) {}
+                } catch (Exception ignored) {}
             } else if (e.getMessage().getContentRaw().toLowerCase().startsWith("!editrolegroups")) {
                 // check if this user already has an active chat
                 int actvId = bot.userHasActiveChat(e.getAuthor().getId());
@@ -101,7 +106,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                     RaidBot.writeNotificationActiveChat(e.getAuthor(), actvId);
                     try {
                         e.getMessage().delete().queue();
-                    } catch (Exception exception) {}
+                    } catch (Exception ignored) {}
                     return;
                 }
                 String serverId = e.getMessage().getGuild().getId();
@@ -116,7 +121,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                 }
                 try {
                     e.getMessage().delete().queue();
-                } catch (Exception exception) {}
+                } catch (Exception ignored) {}
             } else if (e.getMessage().getContentRaw().toLowerCase().startsWith("!editroletemplates")) {
                 // check if this user already has an active chat
                 int actvId = bot.userHasActiveChat(e.getAuthor().getId());
@@ -124,7 +129,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                     RaidBot.writeNotificationActiveChat(e.getAuthor(), actvId);
                     try {
                         e.getMessage().delete().queue();
-                    } catch (Exception exception) {}
+                    } catch (Exception ignored) {}
                     return;
                 }
                 String serverId = e.getMessage().getGuild().getId();
@@ -142,7 +147,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                 }
                 try {
                     e.getMessage().delete().queue();
-                } catch (Exception exception) {}
+                } catch (Exception ignored) {}
             }
         }
 
@@ -162,7 +167,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
             }
             try {
                 e.getMessage().delete().queue();
-            } catch (Exception exception) {}
+            } catch (Exception ignored) {}
         }
 
         // all commands that require manage server permissions
@@ -233,7 +238,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                 }
                 try {
                     e.getMessage().delete().queue();
-                } catch (Exception exception) {}
+                } catch (Exception ignored) {}
             }
         }
 
@@ -244,7 +249,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                 String[] split = new String[0];
                 try {
                     split = e.getMessage().getContentRaw().substring(createFracCommand.length()+1).split(";");
-                } catch (Exception excp) { }
+                } catch (Exception ignored) { }
                 String helpMessageAccum = "Correct format: !createFractal [name];[date];[time];[team comp id]\n"
                         + "Enter the information without brackets, for example: !createFractal CMs+T4;13.04.19;13:37 CEST;1\n"
                         + "Available team compositions:\n";
@@ -268,7 +273,7 @@ public class ChannelMessageHandler extends ListenerAdapter {
                     }
                     if (teamCompId >= RoleTemplates.getFractalTemplateNames().length)
                         validTeamComp = false;
-                    if (validTeamComp == false) {
+                    if (!validTeamComp) {
                         e.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Provided team comp id is invalid.").queue());
                         e.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(helpMessage).queue());
                     } else {
@@ -281,13 +286,16 @@ public class ChannelMessageHandler extends ListenerAdapter {
                 }
                 try {
                     e.getMessage().delete().queue();
-                } catch (Exception exception) {}
+                } catch (Exception ignored) {}
             }
         }
     }
 
     @Override
-    public void onGuildMessageDelete(GuildMessageDeleteEvent e) {
+    public void onMessageDelete(MessageDeleteEvent e) {
+        if (!e.isFromGuild())
+            return;
+
         Raid raid = RaidManager.getRaid(e.getMessageId());
         if (raid != null && raid.getServerId().equalsIgnoreCase(e.getGuild().getId())) {
             raid.postToArchive();

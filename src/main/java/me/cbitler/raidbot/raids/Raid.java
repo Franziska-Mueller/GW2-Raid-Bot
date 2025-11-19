@@ -7,6 +7,7 @@ import me.cbitler.raidbot.utility.PermissionsUtil;
 import me.cbitler.raidbot.utility.Reactions;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -391,7 +392,7 @@ public class Raid {
 
     /**
      * Rename a role of the event
-     * @param role id
+     * @param id the role id
      * @param newname new name for the role
      * @return 0 success, 1 role exists, 2 SQL error
      */
@@ -437,7 +438,7 @@ public class Raid {
 
     /**
      * Change amount for a role of the event
-     * @param role id
+     * @param id the role id
      * @param newamount new amount for the role
      * @return 0 success, 1 number of users > new amount, 2 SQL error
      */
@@ -464,7 +465,7 @@ public class Raid {
 
     /**
      * Change flex only status of a role
-     * @param role id
+     * @param id the role id
      * @param newStatus new amount for the role
      * @return 0 success, 1 number of users > 0 when enabling flexOnly, 2 SQL error
      */
@@ -977,7 +978,7 @@ public class Raid {
                     String username = userIDsToNicknames.get(user.getId());
                     if (username == null)
                         username = user.getName();
-                    Emote userEmote = Reactions.getEmoteByName(user.getSpec());
+                    RichCustomEmoji userEmote = Reactions.getEmoteByName(user.getSpec());
                     if(userEmote == null)
                         text += ("- " + username + " (" + user.getSpec() + ")\n");
                     else
@@ -1055,7 +1056,7 @@ public class Raid {
                 if (isOpenWorld) {
                     text += ("- " + username + "\n");
                 } else {
-                    Emote userEmote = Reactions.getEmoteByName(user.spec);
+                    RichCustomEmoji userEmote = Reactions.getEmoteByName(user.spec);
                     if(userEmote == null)
                         text += "   - " + username + " (" + user.spec + ")\n";
                     else
@@ -1097,7 +1098,7 @@ public class Raid {
                         if (username == null)
                             username = user.getName();
 
-                        Emote userEmote = Reactions.getEmoteByName(user.getSpec());
+                        RichCustomEmoji userEmote = Reactions.getEmoteByName(user.getSpec());
                         if(userEmote == null)
                             text += username;
                         else
@@ -1280,7 +1281,7 @@ public class Raid {
 
         Guild guild = RaidBot.getInstance().getServer(serverId);
         List<TextChannel> channels = guild.getTextChannelsByName(ServerSettings.getArchiveChannel(serverId), true);
-        if(channels.size() > 0) {
+        if(!channels.isEmpty()) {
             // We always go with the first channel if there is more than one
             try {
                 channels.get(0).sendMessage(message).queue();
@@ -1329,7 +1330,7 @@ public class Raid {
     /**
      * Checks whether the given user is permitted to sign up for this event
      *
-     * @param userId
+     * @param member the user as member
      * @return whether user has permission
      */
     public boolean isUserPermitted(Member member) {

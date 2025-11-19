@@ -3,7 +3,7 @@ package me.cbitler.raidbot.selection;
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.utility.ClassesSpecs;
 import me.cbitler.raidbot.utility.Reactions;
-import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -76,7 +76,7 @@ public class PickSpecStep implements SelectionStep {
     public String getStepText() {
         String text = "Pick a specialization:\n";
         for (int i = 0; i < allSpecs.length; i++) {
-            Emote specEmote = Reactions.getEmoteByName(allSpecs[i]);
+            RichCustomEmoji specEmote = Reactions.getEmoteByName(allSpecs[i]);
             if (specEmote != null) {
                 text += "`" + (i+1) + "` <:" + specEmote.getName() + ":" + specEmote.getId() + "> " + allSpecs[i] + "\n";
             } else {

@@ -2,7 +2,7 @@ package me.cbitler.raidbot.logs;
 
 import me.cbitler.raidbot.utility.EnvVariables;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.PrivateChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -53,7 +53,7 @@ public class LogParser implements Runnable {
      */
     @Override
     public void run() {
-        channel.sendMessage("EVTC file recieved... downloading file").queue();
+        channel.sendMessage("EVTC file received... downloading file").queue();
         String fileName = attachment.getFileName();
         for(Map.Entry<String,String> invalidCharacter : invalidCharacters.entrySet()) {
             fileName = fileName.replace(invalidCharacter.getKey(), invalidCharacter.getValue());

@@ -2,7 +2,7 @@ package me.cbitler.raidbot.selection;
 
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.utility.Reactions;
-import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -63,7 +63,7 @@ public class PickClassStep implements SelectionStep {
     public String getStepText() {
         String text = "Pick a core class:\n";
         for (int i = 0; i < Reactions.coreClasses.length; i++) {
-            Emote specEmote = Reactions.getEmoteByName(Reactions.coreClasses[i]);
+            RichCustomEmoji specEmote = Reactions.getEmoteByName(Reactions.coreClasses[i]);
             if (specEmote != null) {
                 text += "`" + (i+1) + "` <:" + specEmote.getName() + ":" + specEmote.getId() + "> " + Reactions.coreClasses[i] + "\n";
             } else {

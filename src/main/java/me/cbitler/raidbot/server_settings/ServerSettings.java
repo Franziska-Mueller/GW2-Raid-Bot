@@ -6,7 +6,7 @@ import me.cbitler.raidbot.database.QueryResult;
 import me.cbitler.raidbot.raids.RaidRole;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.sql.SQLException;
 import java.util.*;
