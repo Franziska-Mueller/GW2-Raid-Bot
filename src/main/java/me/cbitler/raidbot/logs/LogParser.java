@@ -65,8 +65,14 @@ public class LogParser implements Runnable {
         File file = new File("parser/" + attachment.getFileName());
 
         if(file.exists()) file.delete();
-        attachment.downloadToFile(file);
-        channel.sendMessage("File downloaded.. parsing.").queue();
+        attachment.getProxy().downloadToFile(file)
+                .thenAccept(downloadedFile -> {
+                    channel.sendMessage("File downloaded.. parsing.").queue();
+                })
+                .exceptionally(excp -> {
+                    log.warn("Error while downloading file.", excp);
+                    return null;
+                });
 
         String finalFileName = "";
         String dpsReportUrl = "";

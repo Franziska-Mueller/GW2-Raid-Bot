@@ -8,6 +8,7 @@ import me.cbitler.raidbot.utility.Reactions;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -52,7 +53,7 @@ public class Raid {
      * @param messageId      The embedded message Id related to this raid
      * @param serverId       The serverId that the raid is on
      * @param channelId      The announcement channel's id for this raid
-     * @param raidLeaderName The name of the raid leader
+     * @param raidLeaderId   The name of the raid leader
      * @param name           The name of the raid
      * @param date           The date of the raid
      * @param time           The time of the raid
@@ -493,7 +494,7 @@ public class Raid {
 
     /**
      * Delete a role from the event
-     * @param role id
+     * @param id the role id
      * @return 0 success, 1 number of users > 0, 2 SQL error
      */
     public int deleteRole(int id) {
@@ -828,8 +829,8 @@ public class Raid {
         MessageEmbed embed = (isFractalEvent || isDisplayShort) ? buildEmbedShort(true) : buildEmbed(true);
         try {
             RaidBot.getInstance().getServer(getServerId()).getTextChannelById(getChannelId())
-                    .editMessageById(getMessageId(), embed).queue();
-        } catch (Exception e) {
+                    .editMessageEmbedsById(getMessageId(), embed).queue();
+        } catch (Exception ignored) {
         }
     }
 
@@ -1284,7 +1285,7 @@ public class Raid {
         if(!channels.isEmpty()) {
             // We always go with the first channel if there is more than one
             try {
-                channels.get(0).sendMessage(message).queue();
+                channels.get(0).sendMessageEmbeds(message).queue();
             } catch (Exception ecxp) {
                 return false;
             }
@@ -1300,14 +1301,14 @@ public class Raid {
     }
 
     public void addPermittedDiscordRoles(String role) {
-        if (permittedDiscordRoles.contains(role) == false)
+        if (!permittedDiscordRoles.contains(role))
             permittedDiscordRoles.add(role);
     }
 
     public void addPermittedDiscordRoles(List<String> roles) {
         for (int r = 0; r < roles.size(); r++)
         {
-            if (permittedDiscordRoles.contains(roles.get(r)) == false)
+            if (!permittedDiscordRoles.contains(roles.get(r)))
                 permittedDiscordRoles.add(roles.get(r));
         }
     }
