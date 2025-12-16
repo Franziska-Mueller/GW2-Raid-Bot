@@ -134,7 +134,11 @@ public class Reactions {
      * @return The emote object representing that emoji
      */
     private static RichCustomEmoji getEmojiFromEnvVar(String varName) {
-        return getEmoji(EnvVariables.getValue(varName));
+        String emojiId = EnvVariables.getValue(varName);
+        System.out.println("EmojiId for argument " + varName + " returned " + emojiId);
+        RichCustomEmoji emoji = getEmoji(emojiId);
+        System.out.println("Emoji is null? " + (emoji == null));
+        return emoji;
     }
 
     /**
