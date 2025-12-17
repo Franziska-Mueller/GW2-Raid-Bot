@@ -1049,7 +1049,11 @@ public class Raid {
         for (RaidRole role : roles) {
             if(role.isFlexOnly()) continue;
             List<RaidUser> raidUsersInRole = getUsersInRole(role.name);
-            text += ("**" + role.name + " ( " + raidUsersInRole.size() + " / " + role.amount + " ):** \n");
+            text += "**" + role.name;
+            if (role.amount > 1) {
+                text += " ( " + raidUsersInRole.size() + " / " + role.amount + " )";
+            }
+            text += ":**\n";
             for (RaidUser user : raidUsersInRole) {
                 String username = userIDsToNicknames.get(user.getId());
                 if (username == null)
@@ -1080,7 +1084,13 @@ public class Raid {
             if(role.isFlexOnly()) continue;
             List<RaidUser> raidUsersInRole = getUsersInRole(role.getName());
             if (isOpenWorld) {
-                text += ("**" + role.getName() + " ( " + raidUsersInRole.size() + " / " + role.getAmount() + " ):** \n");
+                text += "**" + role.getName();
+                if (role.getAmount() > 1)
+                {
+                    text += " ( " + raidUsersInRole.size() + " / " + role.getAmount() + ")";
+                }
+                text += ":**\n";
+
                 for (RaidUser user : raidUsersInRole) {
                     String username = userIDsToNicknames.get(user.getId());
                     if (username == null)
