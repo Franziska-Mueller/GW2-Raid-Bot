@@ -76,6 +76,7 @@ public class RaidBot {
                                                                      GatewayIntent.GUILD_MESSAGE_REACTIONS.getRawValue() +
                                                                      GatewayIntent.GUILD_MEMBERS.getRawValue() +
                                                                      GatewayIntent.GUILD_MESSAGES.getRawValue() +
+                                                                     GatewayIntent.GUILD_EXPRESSIONS.getRawValue() +
                                                                      GatewayIntent.MESSAGE_CONTENT.getRawValue()
         );
 
