@@ -19,11 +19,12 @@ import me.cbitler.raidbot.selection.SelectionStep;
 import me.cbitler.raidbot.server_settings.RoleGroupsEditStep;
 import me.cbitler.raidbot.server_settings.RoleTemplatesEditStep;
 import me.cbitler.raidbot.swap.SwapStep;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import static net.dv8tion.jda.api.entities.channel.ChannelType.PRIVATE;
 
 /**
  * Handle direct messages sent to the bot
@@ -50,7 +51,10 @@ public class DMHandler extends ListenerAdapter {
      * @param e The private message event
      */
     @Override
-    public void onPrivateMessageReceived(PrivateMessageReceivedEvent e) {
+    public void onMessageReceived(MessageReceivedEvent e) {
+        if (!e.isFromType(PRIVATE))
+            return;
+
         User author = e.getAuthor();
 
         if (bot.getCreationMap().containsKey(author.getId())) {
@@ -274,11 +278,11 @@ public class DMHandler extends ListenerAdapter {
             }
         }
 
-        if(e.getMessage().getAttachments().size() > 0 && e.getChannel().getType() == ChannelType.PRIVATE) {
+        if(!e.getMessage().getAttachments().isEmpty() && e.isFromType(PRIVATE)) {
             for(Message.Attachment attachment : e.getMessage().getAttachments()) {
                 log.info("Processing attached file from DM '{}'", attachment.getFileName());
                 if(attachment.getFileName().endsWith(".evtc") || attachment.getFileName().endsWith(".evtc.zip")) {
-                    new Thread(new LogParser(e.getChannel(), attachment)).start();
+                    new Thread(new LogParser(e.getChannel().asPrivateChannel(), attachment)).start();
                 }
             }
         }

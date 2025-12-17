@@ -2,7 +2,7 @@ package me.cbitler.raidbot.logs;
 
 import me.cbitler.raidbot.utility.EnvVariables;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.PrivateChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -53,7 +53,7 @@ public class LogParser implements Runnable {
      */
     @Override
     public void run() {
-        channel.sendMessage("EVTC file recieved... downloading file").queue();
+        channel.sendMessage("EVTC file received... downloading file").queue();
         String fileName = attachment.getFileName();
         for(Map.Entry<String,String> invalidCharacter : invalidCharacters.entrySet()) {
             fileName = fileName.replace(invalidCharacter.getKey(), invalidCharacter.getValue());
@@ -65,8 +65,14 @@ public class LogParser implements Runnable {
         File file = new File("parser/" + attachment.getFileName());
 
         if(file.exists()) file.delete();
-        attachment.downloadToFile(file);
-        channel.sendMessage("File downloaded.. parsing.").queue();
+        attachment.getProxy().downloadToFile(file)
+                .thenAccept(downloadedFile -> {
+                    channel.sendMessage("File downloaded.. parsing.").queue();
+                })
+                .exceptionally(excp -> {
+                    log.warn("Error while downloading file.", excp);
+                    return null;
+                });
 
         String finalFileName = "";
         String dpsReportUrl = "";

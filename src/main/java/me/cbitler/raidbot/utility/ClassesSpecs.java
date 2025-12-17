@@ -11,55 +11,64 @@ public class ClassesSpecs {
                 "Guardian",
                 "Dragonhunter",
                 "Firebrand",
-                "Willbender"
+                "Willbender",
+                "Luminary"
             },
             {
                 "Revenant",
                 "Herald",
                 "Renegade",
-                "Vindicator"
+                "Vindicator",
+                "Conduit"
             },
             {
                 "Warrior",
                 "Berserker",
                 "Spellbreaker",
-                "Bladesworn"
+                "Bladesworn",
+                "Paragon"
             },
             {
                 "Engineer",
                 "Scrapper",
                 "Holosmith",
-                "Mechanist"
+                "Mechanist",
+                "Amalgam"
             },
             {
                 "Ranger",
                 "Druid",
                 "Soulbeast",
-                "Untamed"
+                "Untamed",
+                "Galeshot"
             },
             {
                 "Thief",
                 "Daredevil",
                 "Deadeye",
-                "Specter"
+                "Specter",
+                "Antiquary"
             },
             {
                 "Elementalist",
                 "Weaver",
                 "Tempest",
-                "Catalyst"
+                "Catalyst",
+                "Evoker"
             },
             {
                 "Mesmer",
                 "Chronomancer",
                 "Mirage",
-                "Virtuoso"
+                "Virtuoso",
+                "Troubadour"
             },
             {
                 "Necromancer",
                 "Reaper",
                 "Scourge",
-                "Harbinger"
+                "Harbinger",
+                "Ritualist"
             }
     };
 

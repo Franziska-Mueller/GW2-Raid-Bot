@@ -3,9 +3,9 @@ package me.cbitler.raidbot.selection;
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.utility.ClassesSpecs;
 import me.cbitler.raidbot.utility.Reactions;
-import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Step for a user picking a specialization (or core class)
@@ -40,7 +40,7 @@ public class PickSpecStep implements SelectionStep {
      * @return True if the user chose a valid specialization, false otherwise
      */
     @Override
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         try {
             int specId = Integer.parseInt(e.getMessage().getContentRaw()) - 1;
             String spec = allSpecs[specId];
@@ -76,7 +76,7 @@ public class PickSpecStep implements SelectionStep {
     public String getStepText() {
         String text = "Pick a specialization:\n";
         for (int i = 0; i < allSpecs.length; i++) {
-            Emote specEmote = Reactions.getEmoteByName(allSpecs[i]);
+            RichCustomEmoji specEmote = Reactions.getEmoteByName(allSpecs[i]);
             if (specEmote != null) {
                 text += "`" + (i+1) + "` <:" + specEmote.getName() + ":" + specEmote.getId() + "> " + allSpecs[i] + "\n";
             } else {

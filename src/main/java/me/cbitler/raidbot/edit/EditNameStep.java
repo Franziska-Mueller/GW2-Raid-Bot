@@ -2,7 +2,7 @@ package me.cbitler.raidbot.edit;
 
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.raids.RaidManager;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Edit the name for the event
@@ -21,7 +21,7 @@ public class EditNameStep implements EditStep {
      * @param e The direct message event
      * @return True if the name is set, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         Raid raid = RaidManager.getRaid(messageID);
         raid.setName(e.getMessage().getContentRaw());
         if (raid.updateNameDB()) {

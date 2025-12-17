@@ -2,7 +2,7 @@ package me.cbitler.raidbot.auto_events;
 
 import me.cbitler.raidbot.RaidBot;
 import me.cbitler.raidbot.utility.AutomatedTaskExecutor;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class AutoStopStep {
      * @param e The direct message event
      * @return True if the user made a valid choice, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         boolean valid = true;
         ArrayList<Integer> choiceIds = new ArrayList<>();
     	try {

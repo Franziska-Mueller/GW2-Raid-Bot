@@ -3,7 +3,7 @@ package me.cbitler.raidbot.auto_events;
 import me.cbitler.raidbot.raids.AutoPendingRaid;
 import me.cbitler.raidbot.raids.RaidRole;
 import me.cbitler.raidbot.server_settings.ServerSettings;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class AutoRunRoleSetupTemplateStep implements AutoCreationStep {
      * @param e The direct message event
      * @return True if the user made a valid choice, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         try {
             int choiceId = Integer.parseInt(e.getMessage().getContentRaw()) - 1;
             if (choiceId == templateNames.size()) { // user chose to add roles manually

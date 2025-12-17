@@ -1,6 +1,6 @@
 package me.cbitler.raidbot.commands;
 
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class InfoCommand implements Command {

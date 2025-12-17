@@ -5,9 +5,9 @@ package me.cbitler.raidbot.swap;
 import me.cbitler.raidbot.raids.FlexRole;
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.utility.Reactions;
-import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class SwapStep {
      * @param e The private message event
      * @return True if the user chose a valid role, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         ArrayList<FlexRole> rRoles = this.raid.getRaidUsersFlexRolesById(this.user.getId());
         String msg = e.getMessage().getContentRaw();
         int choiceId = -1;
@@ -77,7 +77,7 @@ public class SwapStep {
         	outer += "`"+(++counter)+"` move main role to flex\n";
         outer += "Choose a flex role to be converted to your main role:\n";
         for (FlexRole rUser : raidUsers) {
-            Emote userEmote = Reactions.getEmoteByName(rUser.getSpec());
+            RichCustomEmoji userEmote = Reactions.getEmoteByName(rUser.getSpec());
             if (userEmote!=null) {
                 outer += "`"+(++counter)+"` <:"+userEmote.getName()+":"+userEmote.getId()+"> "+rUser.getSpec()+", "+rUser.getRole()+"\n";
             } else {

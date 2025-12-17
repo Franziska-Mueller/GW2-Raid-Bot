@@ -3,7 +3,7 @@ package me.cbitler.raidbot.edit;
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.raids.RaidManager;
 import me.cbitler.raidbot.server_settings.ServerSettings;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -39,7 +39,7 @@ public class EditPermDiscRoleStep implements EditStep {
      * @param e The direct message event
      * @return True if the user entered a valid choice, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
     	String[] chosenRoles = e.getMessage().getContentRaw().split(",");
         for (int role = 0; role < chosenRoles.length; role++) {
         	// try to parse an integer

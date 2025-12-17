@@ -1,7 +1,7 @@
 package me.cbitler.raidbot.auto_events;
 
 import me.cbitler.raidbot.raids.AutoPendingRaid;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Set the time for when the event should be re-posted daily
@@ -20,7 +20,7 @@ public class AutoRunResetTimeStep implements AutoCreationStep {
      * @param e The direct message event
      * @return True if the time is set, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
     	String[] split = e.getMessage().getContentRaw().split(":");
     	try {
     		int hour = Integer.parseInt(split[0]);

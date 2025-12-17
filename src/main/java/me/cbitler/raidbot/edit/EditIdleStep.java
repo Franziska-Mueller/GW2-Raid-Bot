@@ -2,7 +2,7 @@ package me.cbitler.raidbot.edit;
 
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.raids.RaidManager;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Edit a property for the event
@@ -25,7 +25,7 @@ public class EditIdleStep implements EditStep {
      * @param e The direct message event
      * @return True if the user passed the name of an editable property
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         boolean valid = true;
         if(e.getMessage().getContentRaw().equalsIgnoreCase("done")) {
             nextStep = null;

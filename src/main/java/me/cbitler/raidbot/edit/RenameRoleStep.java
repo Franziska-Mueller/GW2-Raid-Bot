@@ -3,7 +3,7 @@ package me.cbitler.raidbot.edit;
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.raids.RaidManager;
 import me.cbitler.raidbot.raids.RaidRole;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class RenameRoleStep implements EditStep {
      * @param e The direct message event
      * @return True if role is renamed, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
     	boolean finished;
     	Raid raid = RaidManager.getRaid(messageID);
     	List<RaidRole> roles = raid.getRoles();

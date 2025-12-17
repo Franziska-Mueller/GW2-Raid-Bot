@@ -1,7 +1,7 @@
 package me.cbitler.raidbot.utility;
 
 import me.cbitler.raidbot.RaidBot;
-import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +12,15 @@ public class Reactions {
      * List of reactions representing classes
      */
     static String[] specs = {
+            "Luminary",
+            "Conduit",
+            "Paragon",
+            "Amalgam",
+            "Galeshot",
+            "Antiquary",
+            "Evoker",
+            "Troubadour",
+            "Ritualist",
             "Willbender",
             "Vindicator",
             "Bladesworn",
@@ -62,7 +71,16 @@ public class Reactions {
             "Necromancer"
     };
 
-    static Emote[] reactions = {
+    static RichCustomEmoji[] reactions = {
+            getEmojiFromEnvVar("EMOTE_LUMINARY"),
+            getEmojiFromEnvVar("EMOTE_CONDUIT"),
+            getEmojiFromEnvVar("EMOTE_PARAGON"),
+            getEmojiFromEnvVar("EMOTE_AMALGAM"),
+            getEmojiFromEnvVar("EMOTE_GALESHOT"),
+            getEmojiFromEnvVar("EMOTE_ANTIQUARY"),
+            getEmojiFromEnvVar("EMOTE_EVOKER"),
+            getEmojiFromEnvVar("EMOTE_TROUBADOUR"),
+            getEmojiFromEnvVar("EMOTE_RITUALIST"),
             getEmojiFromEnvVar("EMOTE_WILLBENDER"),
             getEmojiFromEnvVar("EMOTE_VINDICATOR"),
             getEmojiFromEnvVar("EMOTE_BLADESWORN"),
@@ -105,7 +123,7 @@ public class Reactions {
             getEmojiFromEnvVar("EMOTE_EDIT")
     };
 
-    static Emote[] reactionsCore = {
+    static RichCustomEmoji[] reactionsCore = {
             getEmojiFromEnvVar("EMOTE_GUARDIAN"),
             getEmojiFromEnvVar("EMOTE_REVENANT"),
             getEmojiFromEnvVar("EMOTE_WARRIOR"),
@@ -121,7 +139,7 @@ public class Reactions {
             getEmojiFromEnvVar("EMOTE_EDIT")
     };
 
-    static Emote[] reactionsOpenWorld = {
+    static RichCustomEmoji[] reactionsOpenWorld = {
             getEmojiFromEnvVar("EMOTE_CHECK"),
             getEmojiFromEnvVar("EMOTE_CANCEL"),
             getEmojiFromEnvVar("EMOTE_EDIT")
@@ -130,10 +148,10 @@ public class Reactions {
     /**
      * Get an emoji from it's emote ID via JDA
      *
-     * @param id The ID of the emoji
+     * @param varName The ID of the emoji
      * @return The emote object representing that emoji
      */
-    private static Emote getEmojiFromEnvVar(String varName) {
+    private static RichCustomEmoji getEmojiFromEnvVar(String varName) {
         return getEmoji(EnvVariables.getValue(varName));
     }
 
@@ -143,8 +161,8 @@ public class Reactions {
      * @param id The ID of the emoji
      * @return The emote object representing that emoji
      */
-    private static Emote getEmoji(String id) {
-        return RaidBot.getInstance().getJda().getEmoteById(id);
+    private static RichCustomEmoji getEmoji(String id) {
+        return RaidBot.getInstance().getJda().getEmojiById(id);
     }
 
     /**
@@ -161,7 +179,7 @@ public class Reactions {
      *
      * @return The emotes
      */
-    public static List<Emote> getEmotes() {
+    public static List<RichCustomEmoji> getEmotes() {
         return new ArrayList<>(Arrays.asList(reactions));
     }
 
@@ -170,7 +188,7 @@ public class Reactions {
      *
      * @return The emotes
      */
-    public static List<Emote> getCoreClassEmotes() {
+    public static List<RichCustomEmoji> getCoreClassEmotes() {
         return new ArrayList<>(Arrays.asList(reactionsCore));
     }
 
@@ -179,12 +197,12 @@ public class Reactions {
      *
      * @return The emotes
      */
-    public static List<Emote> getOpenWorldEmotes() {
+    public static List<RichCustomEmoji> getOpenWorldEmotes() {
         return new ArrayList<>(Arrays.asList(reactionsOpenWorld));
     }
 
-    public static Emote getEmoteByName(String name) {
-        for (Emote emote : reactions) {
+    public static RichCustomEmoji getEmoteByName(String name) {
+        for (RichCustomEmoji emote : reactions) {
             if (emote != null && emote.getName().equalsIgnoreCase(name)) {
                 return emote;
             }

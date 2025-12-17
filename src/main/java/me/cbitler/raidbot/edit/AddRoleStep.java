@@ -3,7 +3,7 @@ package me.cbitler.raidbot.edit;
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.raids.RaidManager;
 import me.cbitler.raidbot.raids.RaidRole;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Add a role to an event
@@ -22,7 +22,7 @@ public class AddRoleStep implements EditStep {
      * @param e The direct message event
      * @return True if a role is added, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         boolean valid = true;
         String[] parts = e.getMessage().getContentRaw().split(":");
         if(parts.length < 2) {

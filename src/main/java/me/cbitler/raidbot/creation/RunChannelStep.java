@@ -3,7 +3,7 @@ package me.cbitler.raidbot.creation;
 import me.cbitler.raidbot.RaidBot;
 import me.cbitler.raidbot.raids.PendingRaid;
 import me.cbitler.raidbot.server_settings.ServerSettings;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Get the announcement channel for the event from the user
@@ -23,7 +23,7 @@ public class RunChannelStep implements CreationStep {
      * @param e The direct message event
      * @return true if the announcement channel was set, false if it was not
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
     	RaidBot bot = RaidBot.getInstance();
     	PendingRaid raid = bot.getPendingRaids().get(e.getAuthor().getId());
     	if (raid == null) {

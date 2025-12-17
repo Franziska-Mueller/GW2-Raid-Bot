@@ -1,6 +1,6 @@
 package me.cbitler.raidbot.server_settings;
 
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Iterator;
 import java.util.List;
@@ -27,7 +27,7 @@ public class RoleGroupsDeleteStep implements RoleGroupsEditStep {
      * @param e The direct message event
      * @return True if a role is deleted, false otherwise
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
     	boolean valid = true;
     	int groupId = -1;
 

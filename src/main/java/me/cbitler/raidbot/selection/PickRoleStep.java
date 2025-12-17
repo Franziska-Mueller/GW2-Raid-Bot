@@ -3,7 +3,7 @@ package me.cbitler.raidbot.selection;
 import me.cbitler.raidbot.raids.Raid;
 import me.cbitler.raidbot.raids.RaidRole;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Step for picking a role for a raid
@@ -36,7 +36,7 @@ public class PickRoleStep implements SelectionStep {
      * @return True if the user chose a valid, not full, role, false otherwise
      */
     @Override
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         boolean success = true;
         try {
             int roleId = Integer.parseInt(e.getMessage().getContentRaw()) - 1;

@@ -1,6 +1,6 @@
 package me.cbitler.raidbot.server_settings;
 
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class RoleTemplatesIdleStep implements RoleTemplatesEditStep {
      * @param e The direct message event
      * @return True if the user passed the name of an editable property
      */
-    public boolean handleDM(PrivateMessageReceivedEvent e) {
+    public boolean handleDM(MessageReceivedEvent e) {
         boolean valid = true;
         if(e.getMessage().getContentRaw().equalsIgnoreCase("done")) {
             nextStep = null;

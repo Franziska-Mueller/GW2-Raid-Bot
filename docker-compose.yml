@@ -49,6 +49,15 @@ services:
       - EMOTE_CATALYST=
       - EMOTE_VIRTUOSO=
       - EMOTE_HARBINGER=
+      - EMOTE_LUMINARY=
+      - EMOTE_CONDUIT=
+      - EMOTE_PARAGON=
+      - EMOTE_AMALGAM=
+      - EMOTE_GALESHOT=
+      - EMOTE_ANTIQUARY=
+      - EMOTE_EVOKER=
+      - EMOTE_TROUBADOUR=
+      - EMOTE_RITUALIST=
 
 volumes:
   bot-db:
