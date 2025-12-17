@@ -1,5 +1,5 @@
 # --- Artifact Build Stage --- #
-FROM maven:3-eclipse-temurin-11 as builder
+FROM maven:3-amazoncorretto-21 as builder
 
 RUN mkdir /app
 WORKDIR /app
@@ -8,7 +8,7 @@ COPY . /app
 RUN mvn package
 
 # --- Image Build Stage --- #
-FROM eclipse-temurin:11
+FROM eclipse-temurin:21
 
 WORKDIR /opt/app
 
