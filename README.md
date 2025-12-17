@@ -260,6 +260,15 @@ The variables the bot reads from the environment are explained in the following 
 | EMOTE_CATALYST     | Emoji ID for the Catalyst class.                                  |
 | EMOTE_VIRTUOSO     | Emoji ID for the Virtuoso class.                                  |
 | EMOTE_HARBINGER    | Emoji ID for the Harbinger class.                                 |
+| EMOTE_LUMINARY     | Emoji ID for the Luminary class.                                  |
+| EMOTE_CONDUIT      | Emoji ID for the Conduit class.                                   |
+| EMOTE_PARAGON      | Emoji ID for the Paragon class.                                   |
+| EMOTE_AMALGAM      | Emoji ID for the Amalgam class.                                   |
+| EMOTE_GALESHOT     | Emoji ID for the Galeshot class.                                  |
+| EMOTE_ANTIQUARY    | Emoji ID for the Antiquary class.                                 |
+| EMOTE_EVOKER       | Emoji ID for the Evoker class.                                    |
+| EMOTE_TROUBADOUR   | Emoji ID for the Troubadour class.                                |
+| EMOTE_RITUALIST    | Emoji ID for the Ritualist class.                                 |
 | EMOTE_FLEX         | Emoji ID for the Flex role reaction.                              |
 | EMOTE_SWAP         | Emoji ID for the Swap reaction.                                   |
 | EMOTE_EDIT         | Emoji ID for the Edit reaction.                                   |
